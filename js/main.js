@@ -25,17 +25,23 @@ methods: {
         });
     },
     makeDone(i){
-        if (this.todoList[i].done == false){
-            this.todoList[i].done = true
-        }else{
-            this.todoList[i].done = false
+        const todoFormData = {
+            toggleTodoIndex: i,
         }
+        axios.post(this.apiUrl,todoFormData,{headers: {'Content-Type': 'multipart/form-data'}}).then((response) =>{
+            this.getTodo();
+    });
+
     },
     removeTask(i){
-        this.todoList.splice(i, 1)
+        const todoFormData = {
+            deleteTodoIndex: i,
+        }
+        axios.post(this.apiUrl,todoFormData,{headers: {'Content-Type': 'multipart/form-data'}}).then((response) =>{
+            this.getTodo();
+        })
     },
 },
-
 
 mounted(){
     this.getTodo();
